@@ -1,0 +1,46 @@
+- hosts: master
+  become: yes
+  tasks: 
+   - name: Redis master deployment in namespace
+     become: yes
+     become_user: ubuntu
+     command: "{{item}}"
+     with_items:
+      -   kubectl apply -f https://k8s.io/examples/application/guestbook/redis-master-deployment.yaml -n=staging 
+      -   kubectl apply -f https://k8s.io/examples/application/guestbook/redis-master-deployment.yaml -n=production 
+   - name: Redis master service deployment in namespaces
+     become: yes
+     become_user: ubuntu
+     command: "{{item}}"
+     with_items:
+      -   kubectl apply -f https://k8s.io/examples/application/guestbook/redis-master-service.yaml -n=staging
+      -   kubectl apply -f https://k8s.io/examples/application/guestbook/redis-master-service.yaml -n=production 
+   - name: Redis slave deployment in namespace
+     become: yes
+     become_user: ubuntu
+     command: "{{item}}"
+     with_items:
+      -   kubectl apply -f https://k8s.io/examples/application/guestbook/redis-slave-deployment.yaml -n=staging
+      -   kubectl apply -f https://k8s.io/examples/application/guestbook/redis-slave-deployment.yaml -n=production 
+   - name: Redis slave service deployment in namespaces 
+     become: yes
+     become_user: ubuntu
+     command: "{{item}}"
+     with_items:
+      -   kubectl apply -f https://k8s.io/examples/application/guestbook/redis-slave-service.yaml -n=staging
+      -   kubectl apply -f https://k8s.io/examples/application/guestbook/redis-slave-service.yaml -n=production 
+   - name: Redis frontend app deployment 
+     become: yes
+     become_user: ubuntu
+     command: "{{item}}"
+     with_items: 
+      -   kubectl apply -f https://k8s.io/examples/application/guestbook/frontend-deployment.yaml -n=staging 
+      -   kubectl apply -f https://k8s.io/examples/application/guestbook/frontend-deployment.yaml -n=production 
+   - name: Redis frontend service deployment 
+     become: yes
+     become_user: ubuntu
+     command: "{{item}}"
+     with_items:
+      -   kubectl apply -f https://k8s.io/examples/application/guestbook/frontend-service.yaml -n=staging
+      -   kubectl apply -f https://k8s.io/examples/application/guestbook/frontend-service.yaml -n=production 
+

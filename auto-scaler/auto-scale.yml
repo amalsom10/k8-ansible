@@ -1,0 +1,11 @@
+- hosts: master
+  become: yes
+  tasks:
+   - name: kubernetes auto-scaler confriguration depends on the cpu usage in stage
+     become: yes
+     become_user: ubuntu
+     shell: kubectl autoscale deployment frontend -n=staging  --min=1 --max=5 --cpu-percent=80
+   - name: kubernetes auto-scaler confriguration depends on the cpu usage in stage
+     become: yes
+     become_user: ubuntu
+     shell: kubectl autoscale deployment frontend -n=production  --min=1 --max=5 --cpu-percent=80

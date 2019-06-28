@@ -1,0 +1,15 @@
+- hosts: master
+  become: yes
+  tasks:
+    - name: create new namespace staging
+      k8s:
+        name: staging
+        api_version: v1
+        kind: Namespace
+        state: present
+    - name: create new namespace production
+      k8s:
+        name: production
+        api_version: v1
+        kind: Namespace
+        state: present
