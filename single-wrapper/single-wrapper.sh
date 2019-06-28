@@ -6,6 +6,8 @@ ansible-playbook -i hosts create_user.yml
 ansible-playbook -i hosts kube-dependencies.yml
 ansible-playbook -i hosts master.yml
 ansible-playbook -i hosts workers.yml
+ansible-playbook -i hosts create-namespace.yml
+ansible-playbook -i hosts app-deployment.yml
 ansible-playbook -i hosts nginx-ingress/nginx_ingress_setup.yml
 ansible-playbook -i hosts auto-scaler/auto-scale.yml
 
